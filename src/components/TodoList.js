@@ -1,19 +1,27 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import { red } from '@material-ui/core/colors'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
 import Icon from '@material-ui/core/Icon'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3, 2)
-  },
   icon: {
-    margin: theme.spacing(1),
     fontSize: 30,
-    color: red[600]
+    color: red[600],
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
+  listItem: {
+    padding: theme.spacing(2, 2),
+    margin: theme.spacing(1),
+    'background-color': 'rgba(185,171,182, 0.35)',
+    'box-shadow': '-8px 11px 39px 1px rgba(0,0,0,0.2)',
+    border: 'solid 1px',
+    'border-radius': '5px'
   }
 }))
 
@@ -22,20 +30,24 @@ const TodoList = (props) => {
 
   return (
     <div id="todo-list">
-      { props.todoList.map((todo, index) => (
-        <Paper key={index} className={classes.root}>
-          <Grid item xs={10}>
-            <Typography>
-              { todo }
-            </Typography>
-          </Grid>
-          <Grid item xs={1}>
-            <Icon className={classes.icon}>
-              delete
-            </Icon>
-          </Grid>
-        </Paper>
-      ))}
+      <List>
+        { props.todoList.map((todo, index) => (
+          <ListItem key={index} className={classes.listItem}>
+            <ListItemText
+              primary={todo}
+            />
+            <ListItemSecondaryAction>
+              <Icon
+                edge="end"
+                className={classes.icon}
+                onClick={props.removeTodo}
+              >
+                delete
+              </Icon>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
     </div>
   )
 }

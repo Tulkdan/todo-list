@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
@@ -32,7 +33,7 @@ const AddTodo = (props) => {
   }
 
   return (
-    <div>
+    <Container maxWidth="sm">
       <TextField
         label="Todo"
         className={classes.textField}
@@ -40,14 +41,18 @@ const AddTodo = (props) => {
         onChange={handleChange}
         margin="normal"
         variant="outlined"
+        fullWidth
       />
       <Button
+        variant="outlined"
+        size="large"
+        color="primary"
         className={classes.button}
         onClick={add}
       >
         Add
       </Button>
-    </div>
+    </Container>
   )
 }
 
