@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import NavBar from './components/NavBar'
+import TodoList from './components/TodoList'
+import AddTodo from './components/AddTodo'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    todoList: ['hahahaha']
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.addTodo = this.addTodo.bind(this)
+  }
+
+  addTodo(value) {
+    const { todoList } = this.state
+    todoList.push(value)
+    this.setState({ todoList })
+    console.log(this.state)
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <AddTodo addValue={this.addTodo} />
+        <TodoList todoList={this.state.todoList} />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
