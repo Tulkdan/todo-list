@@ -1,10 +1,15 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5)
+  },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1)
@@ -28,12 +33,15 @@ const AddTodo = (props) => {
     setValues({ todo: '' })
   }
 
-  const handleChange = event => {
-    setValues({ todo: event.target.value })
+  const handleChange = ({ target }) => {
+    setValues({ todo: target.value })
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className={classes.root}>
+      <Typography variant="h3" gutterBottom>
+        Create a new todo!
+      </Typography>
       <TextField
         label="Todo"
         className={classes.textField}

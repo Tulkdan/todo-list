@@ -6,7 +6,7 @@ import AddTodo from './components/AddTodo'
 
 class App extends Component {
   state = {
-    todoList: ['hahahaha']
+    todoList: []
   }
 
   constructor(props) {
