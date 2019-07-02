@@ -1,20 +1,42 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
-const NavBar = () => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1
+  }
+}))
+
+const NavBar = (props) => {
+  const classes = useStyles()
+
   return (
-    <div>
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography color="inherit" className={classes.title}>
             To-Do
           </Typography>
+          { (props.user) ? (
+            <Button color="inherit" onClick={props.signOut}>
+              Logout
+            </Button>
+          ) : (
+            <Button color="inherit" onClick={props.signIn}>
+              Login
+            </Button>
+          ) }
         </Toolbar>
       </AppBar>
     </div>
   )
 }
 
-export default NavBar;
+export default NavBar

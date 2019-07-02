@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 import Container from '@material-ui/core/Container'
 import NavBar from './components/NavBar'
-import TodoList from './components/TodoList'
-import AddTodo from './components/AddTodo'
+import LoggerInContainer from './components/LoggedInContainer'
 
 class App extends Component {
   state = {
@@ -12,8 +12,30 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      user: null,
+      todoList: []
+    }
+
     this.addTodo = this.addTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
+    this.handleSignIn = this.handleSignIn.bind(this)
+    this.handleSignOut = this.handleSignOut.bind(this)
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user })
+    })
+  }
+
+  handleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider)
+  }
+
+  handleSignOut() {
+    firebase.auth().signOut()
   }
 
   addTodo(value) {
@@ -29,15 +51,24 @@ class App extends Component {
   }
 
   render() {
+    let isLogged
+
+    if (this.user) {
+      isLogged = <LoggerInContainer
+        addTodo={this.addTodo}
+        todoList={this.state.todoList}
+        removeTodo={this.removeTodo} />
+    }
+
     return (
       <div>
-        <NavBar />
+        <NavBar
+          user={this.state.user}
+          signIn={this.handleSignIn}
+          signOut={this.handleSignOut}
+        />
         <Container maxWidth="md" id="content">
-          <AddTodo addValue={this.addTodo} />
-          <TodoList
-            todoList={this.state.todoList}
-            removeTodo={this.removeTodo}
-          />
+          { isLogged }
         </Container>
       </div>
     )
