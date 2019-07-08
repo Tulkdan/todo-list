@@ -3,7 +3,7 @@ import Button from './Button';
 
 const Form = props => (
   <div className="flex w-full justify-center">
-    <div className="flex items-center border-b border-b-2 border-teal-500 py-2 pt-10 w-1/2">
+    <div className="flex items-center border-b border-b-2 border-teal-500 py-2 mx-4 pt-10 w-full md:mx-0 md:w-1/2">
       <input
         className="appearance-none bg-transparect border-none w-full text-gray-700 leading-tight focus:outline-none"
         placeholder="Create a new task"

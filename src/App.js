@@ -11,11 +11,12 @@ class App extends Component {
 
     this.createTask = this.createTask.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.completeTask = this.completeTask.bind(this);
   }
 
   createTask() {
     if (!this.state.task) return;
-    const todos = this.state.todos;
+    const { todos } = this.state;
     todos.push(this.state.task);
     this.setState({ todos, task: '' });
   }
@@ -24,13 +25,19 @@ class App extends Component {
     this.setState({ task: event.target.value });
   }
 
+  completeTask(index) {
+    const { todos } = this.state;
+    todos.splice(index, 1);
+    this.setState({ todos });
+  }
+
   render() {
     return (
       <div className="App">
         <Header />
-        <div className="container mx-auto px-20">
+        <div className="container mx-auto lg:px-20 sm:px-5">
           <Form createTask={this.createTask} handleOnChange={this.handleOnChange} task={this.state.task} />
-          <List todoList={this.state.todos} />
+          <List todoList={this.state.todos} completeTask={this.completeTask} />
         </div>
       </div>
     );
