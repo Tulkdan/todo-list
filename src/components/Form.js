@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Button';
 
 const Form = () => (
   <div className="flex w-full justify-center">
@@ -7,9 +8,10 @@ const Form = () => (
         className="appearance-none bg-transparect border-none w-full text-gray-700 leading-tight focus:outline-none"
         placeholder="Create a new task"
       />
-      <button className="flex-shrink-0 bg-teal-500 border-teal-500 text-sm border-4 text-white py-1 px-2 rounded">
-        Add task
-      </button>
+      <Button
+        btnClass="bg-teal-500 border-teal-500 text-sm flex-shrink-0 text-white"
+        title="Add task"
+      />
     </div>
   </div>
 );
