@@ -3,7 +3,7 @@ import Button from './Button';
 
 const ListItem = props => {
   function onHandleClick() {
-    props.completeTask(props.index);
+    props.completeTask(props.taskId);
   }
 
   return (
