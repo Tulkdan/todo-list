@@ -7,7 +7,7 @@ const COLLECTION = 'todos';
 class FormContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { todos: [], task: '', db: props.db };
+    this.state = { todos: [], task: '', db: props.db, userId: props.user.uid };
 
     this.createTask = this.createTask.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
@@ -15,18 +15,20 @@ class FormContainer extends Component {
   }
 
   createTask() {
-    const { task, db } = this.state;
+    const { task, db, userId } = this.state;
     if (!task) return;
     db.collection(COLLECTION).add({
       todo: task,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      user: userId
     }).then(() => this.setState({ task: '' }))
     .catch(error => console.log(`Error adding document ${error}`));
   }
 
   componentDidMount() {
-    const { db } = this.state;
+    const { db, userId } = this.state;
     db.collection(COLLECTION)
+      .where('user', '==', userId)
       .onSnapshot(data => {
         this.setState({ todos: [] });
         const { todos } = this.state;
